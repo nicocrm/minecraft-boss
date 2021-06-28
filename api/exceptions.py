@@ -1,0 +1,2 @@
+class ServerControlException(Exception):
+    pass
