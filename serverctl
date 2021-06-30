@@ -1,9 +1,11 @@
 #!/bin/sh
 
 # Script used to control the minecraft server.
+# If we are not running as root, re-run the script with sudo
+# (this assumes that we have been added as sudoer for that file)
 
-if [ "$UID" != "0" ]; then
-  exec sudo -n $0 $@
+if [ `id -n` != "0" ]; then
+  exec sudo -n /etc/minecraft/serverctl $@
 fi
 if [ ! -d "$2" ]; then
   echo "Invalid server"
