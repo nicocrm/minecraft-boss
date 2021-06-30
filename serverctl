@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Script used to control the minecraft server.
+
+if [ "$UID" != "0" ]; then
+  exec sudo -n $0 $@
+fi
+if [ ! -d "$2" ]; then
+  echo "Invalid server"
+  exit 101
+fi
+case $1 in
+  start)
+    systemctl start minecraft@$2
+    ;;
+  stop)
+    systemctl stop minecraft@$2
+    ;;
+  *)
+    echo "Invalid command"
+    exit 102
+    ;;
+esac

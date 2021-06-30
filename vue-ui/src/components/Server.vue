@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mb-2">
     <div class="card-body">
       <h5 class="card-title">{{ data.name }}</h5>
       <h6 class="card-subtitle mb-2">{{ data.description }}</h6>

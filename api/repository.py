@@ -17,7 +17,10 @@ class Repository:
 
     async def _control_server(self, operation, server_name):
         p = await asyncio.create_subprocess_exec(
-            path.join(self.minecraft_dir, "serverctl"), operation, server_name
+            path.join(self.minecraft_dir, "serverctl"),
+            operation,
+            server_name,
+            cwd=self.minecraft_dir,
         )
         _, stderr = await p.communicate()
         if p.returncode != 0:
