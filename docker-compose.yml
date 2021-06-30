@@ -10,15 +10,7 @@ services:
     build:
       context: api
     command: uvicorn app:app --host 0.0.0.0
-
-  # build-vue:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.build-vue
-  #   command: [
-  #     "cp", "-a", "/build/dist/.", "/app"
-  #   ]
-  #   volumes:
-  #     - vue-app:/app
-volumes:
-  vue-app:
+    volumes:
+      - ${MINECRAFT_ROOT}:/minecraft
+    environment:
+      MINECRAFT_DIR: /minecraft
