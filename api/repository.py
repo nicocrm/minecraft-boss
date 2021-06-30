@@ -29,7 +29,7 @@ class Repository:
     async def _get_server(self, server_name):
         async def get_is_running():
             p = await asyncio.create_subprocess_exec(
-                "systemctl", "status", "minecraft@" + server_name
+                "/usr/bin/systemctl", "status", "minecraft@" + server_name
             )
             await p.wait()
             return p.returncode == 0
