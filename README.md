@@ -21,15 +21,15 @@ For the Python API:
 For the VueJS UI:
 
 - node >= 14
-- yarn
+- npm
 
 ## Getting started
 
 This will install dependencies for both API and UI applications, and run them concurrently for
 development:
 
-    yarn install
-    yarn start
+    npm install
+    npm start
 
 By default the UI will run on port 8080 and the API on port 8000.  The development server includes a
 proxy for API request such that the UI can make HTTP request on `/api` without having the use CORS.
@@ -38,7 +38,7 @@ proxy for API request such that the UI can make HTTP request on `/api` without h
 
 - Build the production version of the vue-js application
 
-      cd vue-ui && yarn build
+      cd vue-ui && npm build
 
 - Create a service for the API
 - Set up a reverse proxy to serve the application files (from vue-ui/dist) and proxy requests to
@@ -48,4 +48,4 @@ proxy for API request such that the UI can make HTTP request on `/api` without h
 
 Run unit tests in the root folder with:
 
-    yarn test
+    npm test
