@@ -3,6 +3,8 @@ import logging
 import os
 from os import path
 
+from pyjavaproperties import Properties
+
 from exceptions import ServerControlException
 from models import Server
 
@@ -21,17 +23,10 @@ class Repository:
         if p.returncode != 0:
             LOG.warning("Error in server %s [%s]: %s", operation, server_name, stderr)
             raise ServerControlException("Error in server operation")
+        await asyncio.sleep(1)
         return await self._get_server(server_name)
 
     async def _get_server(self, server_name):
-        def get_motd():
-            server_dir = path.join(self.minecraft_dir, server_name)
-            with open(path.join(server_dir, "server.properties")) as f:
-                for line in f:
-                    if line.startswith("motd="):
-                        return line.replace("motd=", "").rstrip()
-            raise Exception("Could not load motd")
-
         async def get_is_running():
             p = await asyncio.create_subprocess_exec(
                 "systemctl", "status", "minecraft@" + server_name
@@ -39,7 +34,16 @@ class Repository:
             await p.wait()
             return p.returncode == 0
 
-        return Server(name=server_name, description=get_motd(), is_running=await get_is_running())
+        props = Properties()
+        server_dir = path.join(self.minecraft_dir, server_name)
+        with open(path.join(server_dir, "server.properties")) as f:
+            props.load(f)
+        return Server(
+            name=server_name,
+            description=props["motd"],
+            port=int(str(props["server-port"])),
+            is_running=await get_is_running(),
+        )
 
     async def list_servers(self):
         """

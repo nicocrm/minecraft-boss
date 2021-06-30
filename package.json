@@ -1,0 +1,18 @@
+{
+  "name": "earlytracks-anomymizator",
+  "version": "1.0.0",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "scripts": {
+    "install:api": "cd api && pipenv install",
+    "install:vue-ui": "cd vue-ui && yarn install",
+    "install": "yarn run install:api && yarn run install:vue-ui",
+    "start": "concurrently --kill-others -n api,vue-ui \"cd api && pipenv run uvicorn --reload app:app\" \"cd vue-ui && yarn serve\"",
+    "test:api": "cd api && pipenv run python -m pytest",
+    "test:vue-ui": "cd vue-ui && yarn test",
+    "test": "yarn run test:api && yarn run test:vue-ui"
+  },
+  "author": "Nicolas Galler <ngaller@gmail.com>",
+  "license": "ISC"
+}

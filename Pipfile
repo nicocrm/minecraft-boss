@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+pytest = "*"
+pyjavaproperties = "*"
 
 [dev-packages]
 
