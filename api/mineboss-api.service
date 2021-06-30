@@ -1,0 +1,10 @@
+[Unit]
+Description=Minecraft BOSS API
+After=network.target
+
+[Service]
+ExecStart=/home/minecraft/.local/bin/uvicorn app:app
+WorkDirectory=/home/minecraft/minecraft-boss/api
+
+[Install]
+WantedBy=multi-user.target
