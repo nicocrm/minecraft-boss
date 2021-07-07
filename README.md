@@ -40,6 +40,10 @@ proxy for API request such that the UI can make HTTP request on `/api` without h
 
       cd vue-ui && npm build
 
+- Alternatively, you can use a docker container to do the build:
+
+      cd vue-ui && ./build.sh
+
 - Create a service for the API
 - Set up a reverse proxy to serve the application files (from vue-ui/dist) and proxy requests to
   /api to the API service.
