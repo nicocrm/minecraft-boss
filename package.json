@@ -8,7 +8,7 @@
     "install:api": "cd api && pipenv install",
     "install:vue-ui": "cd vue-ui && npm install",
     "install": "npm run install:api && npm run install:vue-ui",
-    "start": "concurrently --kill-others -n api,vue-ui \"cd api && pipenv run uvicorn --reload app:app\" \"cd vue-ui && npm serve\"",
+    "start": "concurrently --kill-others -c green,yellow -n api,vue-ui \"cd api && pipenv run uvicorn --reload app:app\" \"cd vue-ui && npm run serve\"",
     "test:api": "cd api && pipenv run python -m pytest",
     "test:vue-ui": "cd vue-ui && npm test",
     "test": "npm run test:api && npm run test:vue-ui"

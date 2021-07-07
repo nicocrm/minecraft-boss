@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 
 class Server(BaseModel):
@@ -5,3 +6,4 @@ class Server(BaseModel):
     description: str
     port: int
     is_running: bool
+    mods: List[str]

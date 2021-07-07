@@ -1,6 +1,6 @@
-function call(path, body = null) {
+function call(path, body = null, method = null) {
   const options = {
-    method: body ? "POST" : "GET",
+    method: method || (body ? "POST" : "GET"),
     body
   };
   return fetch("/api" + path, options).then(response => {
@@ -35,5 +35,19 @@ export default {
       )}`,
       {}
     );
+  },
+  removeMod(serverName, mod) {
+    return call(
+      `/servers/${encodeURIComponent(serverName)}/mods/${encodeURIComponent(
+        mod
+      )}`,
+      null,
+      "DELETE"
+    );
+  },
+  addMod(serverName, file) {
+    const form = new FormData();
+    form.append("file", file);
+    return call(`/servers/${encodeURIComponent(serverName)}/mods`, form);
   }
 };

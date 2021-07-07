@@ -8,6 +8,7 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 pytest = "*"
 pyjavaproperties = "*"
+python-multipart = "*"
 
 [dev-packages]
 

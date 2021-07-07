@@ -15,6 +15,7 @@ def test_list_servers():
     assert len(result) == 1
     assert result[0].name == "s1"
     assert result[0].description == "A server powered by Casa!"
+    assert result[0].mods == ["mod1"]
     assert not result[0].is_running
 
 
