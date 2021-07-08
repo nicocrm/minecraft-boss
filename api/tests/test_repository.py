@@ -12,11 +12,13 @@ def test_list_servers():
         return [server async for server in gen]
 
     result = list(asyncio.run(consume_generator(repo.list_servers())))
-    assert len(result) == 1
-    assert result[0].name == "s1"
-    assert result[0].description == "A server powered by Casa!"
-    assert result[0].mods == ["mod1"]
-    assert not result[0].is_running
+    assert len(result) == 3
+    assert set([f.name for f in result]) == set(["s1", "another_server", "third_server"])
+    s1 = [f for f in result if f.name == "s1"][0]
+    assert s1.name == "s1"
+    assert s1.description == "A server powered by Casa!"
+    assert s1.mods == ["mod1"]
+    assert not s1.is_running
 
 
 def test_start_server_ok():

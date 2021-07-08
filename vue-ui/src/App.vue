@@ -4,7 +4,7 @@
       Loading...
     </div>
     <div class="row">
-      <div class="col-4 col-xs-12" v-for="s in servers" :key="s.name">
+      <div class="col-12 col-md-6 col-lg-4" v-for="s in servers" :key="s.name">
         <Server :data="s" />
       </div>
     </div>
