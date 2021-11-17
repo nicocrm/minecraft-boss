@@ -18,7 +18,7 @@
               v-for="m in data.mods"
               :key="m"
             >
-              <span>{{ m }}</span>
+              <span><a :href="'/api/servers/' + data.name + '/mods/' + m">{{ m }}</a></span>
               <button class="btn" @click="onRemoveMod(m)" :disabled="loading">
                 <TrashIcon />
               </button>

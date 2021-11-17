@@ -2,7 +2,7 @@ import asyncio
 from os import path
 
 import pytest
-from repository import Repository
+from ..repository import Repository
 
 
 def test_list_servers():

@@ -4,11 +4,10 @@ import logging
 import os
 from os import path
 
-from fastapi import UploadFile
 from pyjavaproperties import Properties
 
-from exceptions import ServerControlException
-from models import Server
+from .exceptions import ServerControlException
+from .models import Server
 
 LOG = logging.getLogger(__name__)
 
@@ -82,9 +81,7 @@ class Repository:
         return await self._control_server("stop", server_name)
 
     async def remove_mod(self, server_name: str, mod_name: str):
-        assert "/" not in mod_name
-        server_dir = self._server_dir(server_name)
-        mod_path = path.join(server_dir, "mods", mod_name + ".jar")
+        mod_path = self.get_mod_path(server_name, mod_name)
         os.unlink(mod_path)
         return await self._get_server(server_name)
 
@@ -94,3 +91,9 @@ class Repository:
         with open(path.join(server_dir, "mods", filename), "wb") as outf:
             outf.write(data)
         return await self._get_server(server_name)
+
+    def get_mod_path(self, server_name: str, mod_name: str) -> str:
+        assert "/" not in mod_name
+        server_dir = self._server_dir(server_name)
+        return path.join(server_dir, "mods", mod_name + ".jar")
+

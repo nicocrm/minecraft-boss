@@ -25,6 +25,14 @@ For the VueJS UI:
 
 ## Getting started
 
+Copy the provided `env.sample` file and edit the configuration:
+
+    cp env.sample .env
+
+There is only one configuration variable, the path to the minecraft server root directory:
+
+    MINECRAFT_DIR=/home/minecraft
+
 This will install dependencies for both API and UI applications, and run them concurrently for
 development:
 
@@ -44,7 +52,7 @@ proxy for API request such that the UI can make HTTP request on `/api` without h
 
       cd vue-ui && ./build.sh
 
-- Create a service for the API
+- Create a service for the API.  Be sure to have the `MINECRAFT_DIR` environment variable set. 
 - Set up a reverse proxy to serve the application files (from vue-ui/dist) and proxy requests to
   /api to the API service.
 

@@ -1,11 +1,11 @@
 from typing import cast
 
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 
-from config import config
-from exceptions import ServerControlException
-from repository import Repository
+from .config import config
+from .exceptions import ServerControlException
+from .repository import Repository
 
 app = FastAPI()
 repo = Repository(config["minecraft_dir"])
@@ -30,6 +30,12 @@ async def stop(server_name: str):
 async def remove_mod(server_name: str, mod_name: str):
     return await repo.remove_mod(server_name, mod_name)
 
+
+@app.get("/servers/{server_name}/mods/{mod_name}")
+def get_mod(server_name: str, mod_name: str):
+    return FileResponse(path=repo.get_mod_path(server_name, mod_name),
+                        media_type="application/octet-stream",
+                        filename=mod_name + ".jar")
 
 @app.post("/servers/{server_name}/mods")
 async def add_mod(server_name: str, file: UploadFile = File(...)):
